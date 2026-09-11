@@ -1,0 +1,7 @@
+{
+  "name": "vitest-11241-repro",
+  "private": true,
+  "type": "module",
+  "scripts": { "repro": "bash repro.sh" },
+  "devDependencies": { "vitest": "^4.1.11" }
+}
