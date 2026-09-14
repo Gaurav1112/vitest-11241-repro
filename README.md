@@ -1,3 +1,20 @@
+# ⚠️ RETRACTED (2026-09-15)
+
+**This reproduction is flawed and does not demonstrate the issue.** Two problems, found after
+[AriPerkkio's review](https://github.com/vitest-dev/vitest/issues/11241):
+
+1. vitest's CLI re-spawns itself: `repro.sh` captures and kills the *launcher* process, not the
+   actual vitest main. The worker is never orphaned; the run simply completes and the script
+   reports a normal exit. It "passes fine" because nothing was ever broken.
+2. The suggested `.catch()` fix rested on a wrong assumption. `process.send` on a closed IPC
+   channel returns `false` and emits an `'error'` event on the process — it does not throw and
+   produces no promise rejection, so there is nothing for a `.catch()` to catch.
+
+The repository is archived and kept only as a record of the correction. Original (incorrect)
+README follows.
+
+---
+
 # Reproduction for vitest-dev/vitest#11241
 
 A `--pool=forks` worker orphaned by a main process that dies **without pool
